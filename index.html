@@ -1,0 +1,301 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+
+
+<style type="text/css">
+
+
+
+
+  #the-canvas {
+
+
+  border: 5px solid #f1f1f1;
+  direction: ltr;
+} 
+
+  #title-result {
+    position: absolute;
+    z-index: 1;
+    margin-top: 136.5px; 
+    margin-left: 32px;
+    font-family: Helvetica, Sans-Serif;
+    color: #ffffff;
+    font-size: 18.9px;
+    font-weight: bold;
+}
+
+
+  #subtitle-result {
+    position: absolute;
+    z-index: 1;
+    margin-top: 162.3px; 
+    margin-left: 32px;
+    font-family: Helvetica, Sans-Serif;
+    color: #ffffff;
+    font-size: 11.4px;
+   
+}
+
+  #main-result {
+    position: absolute;
+    z-index: 1;
+    margin-top: 308.55px; 
+    margin-left: 32px;
+    font-family: Helvetica, Sans-Serif;
+    color: #222E3E;
+    font-size: 6.3px;
+    
+}
+
+  #bonus-result {
+    position: absolute;
+    z-index: 1;
+    margin-top: 444.6px; 
+    margin-left: 32px;
+    font-family: Helvetica, Sans-Serif;
+    color: #222E3E;
+    font-size: 6.3px;
+   
+}
+
+
+.element {
+  width: 100%;
+  padding: 15px;
+    border: none;
+  background: #f1f1f1;
+     font-family: Helvetica, Sans-Serif;
+}
+
+.element:focus{
+  background-color: #ddd;
+  outline: none;
+}
+
+
+
+
+  #inputForm {
+
+    margin-left: 20px;
+    vertical-align: top;
+    display: inline-block;
+    position: absolute;
+
+}
+
+h1 {
+  font-family: Helvetica, Sans-Serif;
+ color: #006FD3;
+}
+
+
+#container {
+
+  width: 100%;
+
+}
+
+.btn {
+  background-color: #006FD3;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+ 
+  opacity: 0.9;
+}
+
+
+
+
+</style>
+  </head>
+
+  <body>
+    <h1>Entelec PDF Template Generator</h1><br>
+
+
+<div id="container">
+      <div id="title-result" class="preview"></div>
+      <div id="subtitle-result" class="preview"></div>
+      <div id="main-result" class="preview"></div>
+      <div id="bonus-result" class="preview"></div>
+
+      <canvas id="the-canvas"></canvas>
+       
+        <form id="inputForm" onsubmit="return false">
+          <input type="text" id="title-source" name="title" placeholder="Enter Title" class="element" required><br><br>
+          <input type="text" id="subtitle-source" name="title" placeholder="Enter Subtitle" class="element" required><br><br>
+          <textarea rows="4" cols="50" type="text" id="main-source" name="title" placeholder="Enter Main Assignment" class="element" required></textarea> <br><br>
+          <textarea rows="4" cols="50" type="text" id="bonus-source" name="title" placeholder="Enter Bonus" class="element" required></textarea><br><br><br>
+    
+          <br> <button form="inputForm" class="btn" onclick="modifyPdf()">Download PDF</button>
+        </form>
+
+      
+</div>
+  
+      
+
+  </body>
+
+<script>
+
+
+    const tempObject = {
+
+        'title' : 'Marketing',
+        'sub-title' : 'Interview Assignment',
+        'assignment' : 'Website navigation is a crucial aspect in telling a company’s own unique story. We want you to come up with a new header architecture for our website. To start, go have a look at the current header menu at https://www.entelec.eu. How would you restructure this entire header in a way that there is less confusion for new visitors? Which header items would you remove and why? How are you dealing with nested sub-directories? How would you deal with people that haven’t heard of PSIM before? The primary goal of this task is to minimize the time it takes to understand the core business logic of Entelec. It’s thereby important that your solution reflects that.',
+        'bonus' : 'Copywriting is an important skill for any marketing related field. Can you create an inspiring English text of maximum 300 words explaining what Entelec stands for, what makes us unique and how does our product solves B2B PSIM-oriented problems. Bare in mind that we want a good story and not a list of meaningless assumptions.'
+
+      }
+
+
+  var textObjects = {
+
+        'title-result'    : {'name' : '', 'margin-top': 901, 'font-size': 126, 'isBold': true, 'color': [1.0, 1.0, 1.0] },
+        'subtitle-result' : {'name' : '', 'margin-top': 1082, 'font-size': 76, 'isBold': false, 'color': [1.0, 1.0, 1.0] },
+        'main-result'     : {'name' : '', 'margin-top': 2057, 'font-size': 42, 'isBold': false, 'color': [0.133, 0.180, 0.243] },
+        'bonus-result'    : {'name' : '', 'margin-top': 2964, 'font-size': 42, 'isBold': false, 'color': [0.133, 0.180, 0.243] },
+      }
+
+
+
+function launchEvent(event, item, index) {
+
+
+
+  item[index].innerHTML = event.target.value.replace(/(\S+\s*){1,17}/g, "$&<br>"); 
+  textObjects[item[index].id]['name'] = event.target.value;
+   
+}
+
+
+var list = document.getElementsByClassName("element");
+var preview = document.getElementsByClassName("preview");
+
+
+for (var i = 0; i < list.length; i++) {
+
+    (function(){
+
+          var index = i;
+          list[i].addEventListener('input',  (e) => { launchEvent(e, preview, index); }, false);
+          list[i].addEventListener('propertychange',  (e) => { launchEvent(e, preview, index); }, false);
+
+        })()
+}
+
+
+// Fetch an existing PDF document
+const url = 'https://www.twistbase.com/wp-content/uploads/2021/03/template.pdf'
+
+// Loaded via <script> tag, create shortcut to access PDF.js exports.
+var pdfjsLib = window['pdfjs-dist/build/pdf'];
+
+// The workerSrc property shall be specified.
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+// Asynchronous download of PDF
+var loadingTask = pdfjsLib.getDocument(url);
+loadingTask.promise.then(function(pdf) {
+  console.log('PDF loaded');
+  
+  // Fetch the first page
+  var pageNumber = 1;
+  pdf.getPage(pageNumber).then(function(page) {
+    console.log('Page loaded');
+    
+    var scale = 0.15;
+    var viewport = page.getViewport({scale: scale});
+
+    // Prepare canvas using PDF page dimensions
+    var canvas = document.getElementById('the-canvas');
+    var context = canvas.getContext('2d');
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    // Render PDF page into canvas context
+    var renderContext = {
+      canvasContext: context,
+      viewport: viewport
+    };
+    var renderTask = page.render(renderContext);
+    renderTask.promise.then(function () {
+      console.log('Page rendered');
+    });
+  });
+}, function (reason) {
+  // PDF loading error
+  console.error(reason);
+});
+
+const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
+
+
+async function modifyPdf() {
+
+var list = document.getElementsByClassName("preview");
+
+//return when one or more fields are empty
+for (var i = 0; i < list.length; i++) {
+  if ( list[i].innerHTML == '' ) {
+      return;
+  }          
+}
+
+      // Fetch an existing PDF document
+    const url = 'https://www.twistbase.com/wp-content/uploads/2021/03/template.pdf'
+      
+  		//const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+      const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+
+      // Load a PDFDocument from the existing PDF bytes
+      const pdfDoc = await PDFDocument.load(existingPdfBytes)
+
+      // Embed the Helvetica font
+      const helveticaFontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold)
+      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+
+      // Get the first page of the document
+      const pages = pdfDoc.getPages()
+      const firstPage = pages[0]
+
+      // Get the width and height of the first page
+      const { width, height } = firstPage.getSize()
+
+
+
+var preview = document.getElementsByClassName("preview");
+
+for (var i = 0; i < preview.length; i++) {
+
+
+var id = preview[i].id;
+var color = textObjects[id]['color'];
+
+    firstPage.drawText(textObjects[id]['name'].replace(/(\S+\s*){1,17}/g, "$&\n\n"), {
+        x: 180,
+        y: height - textObjects[id]['margin-top'] - textObjects[id]['font-size'],
+        size: textObjects[id]['font-size'],
+        font: textObjects[id]['isBold'] ? helveticaFontBold : helveticaFont,
+        color: rgb(color[0], color[1], color[2] ),
+      })
+}
+
+
+      // Serialize the PDFDocument to bytes (a Uint8Array)
+      const pdfBytes = await pdfDoc.save()
+
+			// Trigger the browser to download the PDF document
+      download(pdfBytes, "pdf-lib_creation_example.pdf", "application/pdf");
+    }
+  </script>
+</html>
