@@ -1,7 +1,6 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    
     <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
     <script src="https://unpkg.com/downloadjs@1.4.7"></script>
 
@@ -10,66 +9,54 @@
 
 
 
-
-  #the-canvas {
-
-
-  border: 5px solid #f1f1f1;
-  direction: ltr;
-} 
-
-  #title-result {
-    position: absolute;
-    z-index: 1;
-    margin-top: 136.5px; 
-    margin-left: 32px;
-    font-family: Helvetica, Sans-Serif;
-    color: #ffffff;
-    font-size: 18.9px;
-    font-weight: bold;
+#title-result {   
+  position: absolute;
+  z-index: 1;
+  margin-top: 136.5px; 
+  margin-left: 32px;
+  font-family: Helvetica, Sans-Serif;
+  color: #ffffff;
+  font-size: 18.9px;
+  font-weight: bold;
 }
 
 
-  #subtitle-result {
-    position: absolute;
-    z-index: 1;
-    margin-top: 162.3px; 
-    margin-left: 32px;
-    font-family: Helvetica, Sans-Serif;
-    color: #ffffff;
-    font-size: 11.4px;
-   
+#subtitle-result {
+  position: absolute;
+  z-index: 1;
+  margin-top: 162.3px; 
+  margin-left: 32px;
+  font-family: Helvetica, Sans-Serif;
+  color: #ffffff;
+  font-size: 11.4px;  
 }
 
-  #main-result {
-    position: absolute;
-    z-index: 1;
-    margin-top: 308.55px; 
-    margin-left: 32px;
-    font-family: Helvetica, Sans-Serif;
-    color: #222E3E;
-    font-size: 6.3px;
-    
+#main-result {
+  position: absolute;
+  z-index: 1;
+  margin-top: 308.55px; 
+  margin-left: 32px;
+  font-family: Helvetica, Sans-Serif;
+  color: #222E3E;
+  font-size: 6.3px;  
 }
 
-  #bonus-result {
-    position: absolute;
-    z-index: 1;
-    margin-top: 444.6px; 
-    margin-left: 32px;
-    font-family: Helvetica, Sans-Serif;
-    color: #222E3E;
-    font-size: 6.3px;
-   
+#bonus-result {
+  position: absolute;
+  z-index: 1;
+  margin-top: 444.6px; 
+  margin-left: 32px;
+  font-family: Helvetica, Sans-Serif;
+  color: #222E3E;
+  font-size: 6.3px; 
 }
-
 
 .element {
   width: 100%;
-  padding: 15px;
-    border: none;
+  padding: 20px;
+  border: none;
   background: #f1f1f1;
-     font-family: Helvetica, Sans-Serif;
+  font-family: OpenSans, Sans-Serif;
 }
 
 .element:focus{
@@ -77,97 +64,87 @@
   outline: none;
 }
 
-
-
-
-  #inputForm {
-
-    margin-left: 20px;
-    vertical-align: top;
-    display: inline-block;
-    position: absolute;
-
+#inputForm {
+  margin-left: 20px;
 }
 
 h1 {
-  font-family: Helvetica, Sans-Serif;
- color: #006FD3;
+  text-align: center;
+  font-family: OpenSans, Sans-Serif;
+  font-weight: normal;
+  color: #ffffff;
+
 }
 
-
 #container {
-
   width: 100%;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
 
 }
 
 .btn {
+  width: 100%;
   background-color: #006FD3;
   color: white;
-  padding: 16px 20px;
+  padding: 20px;
   border: none;
   cursor: pointer;
-  opacity: 0.9;
 }
 
-
-#box {
-
-   display: inline-block;
-   border: 5px solid #f1f1f1;
+img {
+  border: 5px solid #f1f1f1;
 }
 
+nav{
+  margin: 0px;
+  background-color: #006FD3;
+}
+
+body{
+  margin: 0px;
+}
 
 
 </style>
   </head>
-
   <body>
-    <h1>Entelec PDF Template Generator</h1><br>
+   
+      <nav>
+           <br><h1>Entelec PDF Template Generator</h1><br>
+      </nav>
 
-
-<div id="container">
-      <div id="title-result" class="preview"></div>
-      <div id="subtitle-result" class="preview"></div>
-      <div id="main-result" class="preview"></div>
-      <div id="bonus-result" class="preview"></div>
-
-<div id="box">
-<img src="assets/template.png" class="image"> 
-</div>
-
-       
-        <form id="inputForm" onsubmit="return false">
-          <input type="text" id="title-source" name="title" placeholder="Enter Title" class="element" required><br><br>
-          <input type="text" id="subtitle-source" name="title" placeholder="Enter Subtitle" class="element" required><br><br>
-          <textarea rows="4" cols="50" type="text" id="main-source" name="title" placeholder="Enter Main Assignment" class="element" required></textarea> <br><br>
-          <textarea rows="4" cols="50" type="text" id="bonus-source" name="title" placeholder="Enter Bonus" class="element" required></textarea><br><br><br>
-    
-          <br> <button form="inputForm" class="btn" onclick="modifyPdf()">Download PDF</button>
-        </form>
-
-      
-</div>
+    <div id="container">
   
-      
-
+       <div>
+          <div id="title-result" class="preview"></div>
+          <div id="subtitle-result" class="preview"></div>
+          <div id="main-result" class="preview"></div>
+          <div id="bonus-result" class="preview"></div>
+          <img src="assets/template.png"> 
+       </div>
+    
+       
+            <form id="inputForm" onsubmit="return false">
+              <input type="text" id="title-source" name="title" placeholder="Enter Title" class="element" required><br><br>
+              <input type="text" id="subtitle-source" name="title" placeholder="Enter Subtitle" class="element" required><br><br>
+              <textarea rows="5" cols="50" type="text" id="main-source" name="title" placeholder="Enter Main Assignment" class="element" required></textarea> <br><br>
+              <textarea rows="5" cols="50" type="text" id="bonus-source" name="title" placeholder="Enter Bonus" class="element" required></textarea><br><br>
+              <button form="inputForm" class="btn" onclick="modifyPdf()">Download PDF</button>
+            </form>  
+          
+    </div>
   </body>
 
 <script>
-
-
-    const tempObject = {
-
-        'title' : 'Marketing',
-        'sub-title' : 'Interview Assignment',
-        'assignment' : 'Website navigation is a crucial aspect in telling a company’s own unique story. We want you to come up with a new header architecture for our website. To start, go have a look at the current header menu at https://www.entelec.eu. How would you restructure this entire header in a way that there is less confusion for new visitors? Which header items would you remove and why? How are you dealing with nested sub-directories? How would you deal with people that haven’t heard of PSIM before? The primary goal of this task is to minimize the time it takes to understand the core business logic of Entelec. It’s thereby important that your solution reflects that.',
-        'bonus' : 'Copywriting is an important skill for any marketing related field. Can you create an inspiring English text of maximum 300 words explaining what Entelec stands for, what makes us unique and how does our product solves B2B PSIM-oriented problems. Bare in mind that we want a good story and not a list of meaningless assumptions.'
-
-      }
+  /*
+    TEST TEMPLATE STRING
+    Website navigation is a crucial aspect in telling a company’s own unique story. We want you to come up with a new header architecture for our website. To start, go have a look at the current header menu at https://www.entelec.eu. How would you restructure this entire header in a way that there is less confusion for new visitors? Which header items would you remove and why? How are you dealing with nested sub-directories? How would you deal with people that haven’t heard of PSIM before? The primary goal of this task is to minimize the time it takes to understand the core business logic of Entelec. It’s thereby important that your solution reflects that.
+  */    
 
 
   var textObjects = {
-
         'title-result'    : {'name' : '', 'margin-top': 901, 'font-size': 126, 'isBold': true, 'color': [1.0, 1.0, 1.0] },
         'subtitle-result' : {'name' : '', 'margin-top': 1082, 'font-size': 76, 'isBold': false, 'color': [1.0, 1.0, 1.0] },
         'main-result'     : {'name' : '', 'margin-top': 2057, 'font-size': 42, 'isBold': false, 'color': [0.133, 0.180, 0.243] },
@@ -175,33 +152,34 @@ h1 {
       }
 
 
+var list = document.getElementsByClassName("element");
+var preview = document.getElementsByClassName("preview");
+
 
 function launchEvent(event, item, index) {
-
-
-
   item[index].innerHTML = event.target.value.replace(/(\S+\s*){1,17}/g, "$&<br>"); 
   textObjects[item[index].id]['name'] = event.target.value;
    
 }
 
 
-var list = document.getElementsByClassName("element");
-var preview = document.getElementsByClassName("preview");
+// Init all event listeners and auto init this function
 
-
-for (var i = 0; i < list.length; i++) {
-
-    (function(){
-
+var initListener = function() {
+  for (var i = 0; i < list.length; i++) {
+      (function(){
           var index = i;
           list[i].addEventListener('input',  (e) => { launchEvent(e, preview, index); }, false);
           list[i].addEventListener('propertychange',  (e) => { launchEvent(e, preview, index); }, false);
+      })()
+  }
+}()
 
-        })()
-}
 
 /*
+
+// PREVIEWING PDF FUNCTIONALITY BUT THIS IS OVERKILL
+// INSTEAD WE ARE JUST USING A SMALL PNG AS IMAGE PRIVIEW
 
 <script src="https://mozilla.github.io/pdf.js/build/pdf.js">
 
@@ -252,24 +230,20 @@ loadingTask.promise.then(function(pdf) {
 */
 
 
-
-
 const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
 
 
 async function modifyPdf() {
 
-var list = document.getElementsByClassName("preview");
-
-//return when one or more fields are empty
-for (var i = 0; i < list.length; i++) {
-  if ( list[i].innerHTML == '' ) {
-      return;
-  }          
-}
+      // Return when one or more fields are empty
+      for (var i = 0; i < preview.length; i++) {
+        if ( preview[i].innerHTML == '' ) {
+            return;
+        }          
+      }
 
       // Fetch an existing PDF document
-    const url = 'https://www.twistbase.com/wp-content/uploads/2021/03/template.pdf'
+      const url = 'https://www.twistbase.com/wp-content/uploads/2021/03/template.pdf'
       
   		//const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
       const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
@@ -289,29 +263,23 @@ for (var i = 0; i < list.length; i++) {
       const { width, height } = firstPage.getSize()
 
 
-
-var preview = document.getElementsByClassName("preview");
-
-for (var i = 0; i < preview.length; i++) {
-
-
-var id = preview[i].id;
-var color = textObjects[id]['color'];
-
-    firstPage.drawText(textObjects[id]['name'].replace(/(\S+\s*){1,17}/g, "$&\n\n"), {
-        x: 180,
-        y: height - textObjects[id]['margin-top'] - textObjects[id]['font-size'],
-        size: textObjects[id]['font-size'],
-        font: textObjects[id]['isBold'] ? helveticaFontBold : helveticaFont,
-        color: rgb(color[0], color[1], color[2] ),
-      })
-}
-
+      // Draw text on PDF
+      for (var i = 0; i < preview.length; i++) {
+        var id = preview[i].id;
+        var color = textObjects[id]['color'];
+        firstPage.drawText(textObjects[id]['name'].replace(/(\S+\s*){1,17}/g, "$&\n\n"), {
+          x: 180,
+          y: height - textObjects[id]['margin-top'] - textObjects[id]['font-size'],
+          size: textObjects[id]['font-size'],
+          font: textObjects[id]['isBold'] ? helveticaFontBold : helveticaFont,
+          color: rgb(color[0], color[1], color[2] ),
+        })
+      }
 
       // Serialize the PDFDocument to bytes (a Uint8Array)
       const pdfBytes = await pdfDoc.save()
 
-			// Trigger the browser to download the PDF document
+      // Trigger the browser to download the PDF document
       download(pdfBytes, "entelec-interview-assignment.pdf", "application/pdf");
     }
   </script>
