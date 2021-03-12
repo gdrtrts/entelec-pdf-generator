@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    
     <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
     <script src="https://unpkg.com/downloadjs@1.4.7"></script>
 
@@ -107,10 +107,15 @@ h1 {
   padding: 16px 20px;
   border: none;
   cursor: pointer;
- 
   opacity: 0.9;
 }
 
+
+#box {
+
+   display: inline-block;
+   border: 5px solid #f1f1f1;
+}
 
 
 
@@ -127,7 +132,10 @@ h1 {
       <div id="main-result" class="preview"></div>
       <div id="bonus-result" class="preview"></div>
 
-      <canvas id="the-canvas"></canvas>
+<div id="box">
+<img src="assets/template.png" class="image"> 
+</div>
+
        
         <form id="inputForm" onsubmit="return false">
           <input type="text" id="title-source" name="title" placeholder="Enter Title" class="element" required><br><br>
@@ -193,6 +201,9 @@ for (var i = 0; i < list.length; i++) {
         })()
 }
 
+/*
+
+<script src="https://mozilla.github.io/pdf.js/build/pdf.js">
 
 // Fetch an existing PDF document
 const url = 'https://www.twistbase.com/wp-content/uploads/2021/03/template.pdf'
@@ -236,6 +247,12 @@ loadingTask.promise.then(function(pdf) {
   // PDF loading error
   console.error(reason);
 });
+
+
+*/
+
+
+
 
 const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
 
